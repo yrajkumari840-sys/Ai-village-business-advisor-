@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Village Business Advisor</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, "Noto Sans Devanagari", sans-serif;
+    }
+
+    body {
+      background: #f5f9f3;
+      color: #173b25;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #116530, #2e8b57);
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 15px;
+    }
+
+    .hero {
+      padding: 75px 7%;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      background: linear-gradient(135deg, #e8f7e9, #ffffff);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: #16803c;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #53675a;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #16803c;
+      color: white;
+      padding: 13px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #0d602c;
+    }
+
+    .ai-card {
+      background: white;
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.10);
+    }
+
+    .ai-card h2 {
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      padding: 15px;
+      border: 1px solid #cbd8ce;
+      border-radius: 12px;
+      resize: vertical;
+      font-size: 16px;
+      margin: 12px 0;
+    }
+
+    .answer {
+      margin-top: 15px;
+      padding: 15px;
+      background: #eef8ef;
+      border-radius: 10px;
+      display: none;
+    }
+
+    section {
+      padding: 60px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #65756a;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .service {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 5px 18px rgba(0,0,0,.07);
+      transition: .3s;
+    }
+
+    .service:hover {
+      transform: translateY(-5px);
+    }
+
+    .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .service h3 {
+      margin-bottom: 8px;
+    }
+
+    .service p {
+      color: #68756c;
+      font-size: 14px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      border-left: 5px solid #16803c;
+    }
+
+    .number {
+      font-size: 30px;
+      font-weight: bold;
+      color: #16803c;
+    }
+
+    .cta {
+      background: #12632f;
+      color: white;
+      text-align: center;
+      padding: 55px 7%;
+    }
+
+    .cta h2 {
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      margin-bottom: 22px;
+    }
+
+    footer {
+      background: #092d17;
+      color: #cbd8ce;
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 45px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌾 AI Village Advisor</div>
+
+  <nav>
+    <a href="#home">होम</a>
+    <a href="#services">सेवाएँ</a>
+    <a href="#how">कैसे काम करता है</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+
+  <div>
+    <h1>
+      गाँव के व्यवसाय के लिए
+      <span>AI सलाहकार</span>
+    </h1>
+
+    <p>
+      AI की मदद से अपने गाँव के छोटे व्यवसाय को बेहतर बनाइए।
+      खेती, दुकान, डेयरी, पशुपालन और नए बिज़नेस आइडिया के लिए
+      आसान हिंदी में सलाह प्राप्त करें।
+    </p>
+
+    <a href="#advisor" class="btn">🤖 AI से सलाह लें</a>
+  </div>
+
+  <div class="ai-card" id="advisor">
+    <h2>🤖 अपना सवाल पूछें</h2>
+
+    <p>उदाहरण: “गाँव में कम पैसे में कौन सा बिज़नेस शुरू करूँ?”</p>
+
+    <textarea id="question"
+      placeholder="अपना व्यवसाय संबंधी सवाल यहाँ लिखें..."></textarea>
+
+    <button class="btn" onclick="getAdvice()">
+      सलाह प्राप्त करें
+    </button>
+
+    <div class="answer" id="answer"></div>
+  </div>
+
+</section>
+
+<section id="services">
+
+  <div class="section-title">
+    <h2>हमारी AI सेवाएँ</h2>
+    <p>गाँव के व्यवसाय के लिए उपयोगी सलाह</p>
+  </div>
+
+  <div class="services">
+
+    <div class="service">
+      <div class="icon">🌾</div>
+      <h3>कृषि व्यवसाय</h3>
+      <p>फसल, खेती और कृषि से जुड़े व्यवसाय के आइडिया।</p>
+    </div>
+
+    <div class="service">
+      <div class="icon">🐄</div>
+      <h3>डेयरी एवं पशुपालन</h3>
+      <p>दूध, डेयरी और पशुपालन व्यवसाय की योजना।</p>
+    </div>
+
+    <div class="service">
+      <div class="icon">🏪</div>
+      <h3>दुकान व्यवसाय</h3>
+      <p>कपड़े, किराना और अन्य दुकानों को बढ़ाने की सलाह।</p>
+    </div>
+
+    <div class="service">
+      <div class="icon">💡</div>
+      <h3>नया बिज़नेस आइडिया</h3>
+      <p>आपके बजट के अनुसार नए व्यवसाय के सुझाव।</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="how">
+
+  <div class="section-title">
+    <h2>AI Advisor कैसे काम करता है?</h2>
+    <p>सिर्फ तीन आसान चरण</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="number">01</div>
+      <h3>अपना सवाल लिखें</h3>
+      <p>
+        अपने व्यवसाय या बिज़नेस आइडिया से जुड़ा सवाल हिंदी में लिखें।
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="number">02</div>
+      <h3>AI से सलाह लें</h3>
+      <p>
+        AI आपके सवाल को समझकर आसान भाषा में सुझाव देता है।
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="number">03</div>
+      <h3>व्यवसाय शुरू करें</h3>
+      <p>
+        सलाह के आधार पर अपनी योजना बनाकर व्यवसाय को आगे बढ़ाएँ।
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<div class="cta">
+  <h2>अपने गाँव के व्यवसाय को आगे बढ़ाएँ 🚀</h2>
+  <p>
+    सही जानकारी और AI की मदद से बेहतर बिज़नेस निर्णय लें।
+  </p>
+
+  <a href="#advisor" class="btn">अभी AI सलाह लें</a>
+</div>
+
+<footer>
+  © 2026 AI Village Business Advisor | गाँव के व्यवसाय के लिए AI सहायता
+</footer>
+
+<script>
+function getAdvice() {
+
+  const question = document.getElementById("question").value.trim();
+  const answer = document.getElementById("answer");
+
+  if (!question) {
+    answer.style.display = "block";
+    answer.innerHTML = "⚠️ कृपया पहले अपना सवाल लिखें।";
+    return;
+  }
+
+  answer.style.display = "block";
+
+  answer.innerHTML = `
+    <strong>🤖 AI Advisor की प्रारंभिक सलाह:</strong><br><br>
+    आपके सवाल के आधार पर पहले अपने बजट, स्थानीय बाजार,
+    ग्राहकों और उपलब्ध संसाधनों का आकलन करें।
+    छोटे स्तर से शुरुआत करें और व्यवसाय बढ़ने के साथ निवेश बढ़ाएँ।
+    <br><br>
+    <small>
+    💡 वास्तविक AI उत्तर के लिए इस वेबसाइट को अपने AI API
+    से कनेक्ट किया जा सकता है।
+    </small>
+  `;
+}
+</script>
+
+</body>
+</html>
